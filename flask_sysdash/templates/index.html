@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>System Dashboard 🖥️</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .card {
+            display: inline-block;
+            background: #1e293b;
+            padding: 20px;
+            margin: 15px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.1);
+            width: 200px;
+        }
+        h2 { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>System Dashboard 🧠</h1>
+    <div id="cards"></div>
+
+    <script>
+        async function loadData() {
+            const res = await fetch('/api/system');
+            const data = await res.json();
+            const html = `
+                <div class="card"><h2>Hostname</h2><p>${data.hostname}</p></div>
+                <div class="card"><h2>OS</h2><p>${data.os}</p></div>
+                <div class="card"><h2>CPU</h2><p>${data.cpu_percent}%</p></div>
+                <div class="card"><h2>Memory</h2><p>${data.memory}%</p></div>
+                <div class="card"><h2>Disk</h2><p>${data.disk}%</p></div>
+            `;
+            document.getElementById("cards").innerHTML = html;
+        }
+
+        loadData();
+        setInterval(loadData, 3000); // frissítés 3 másodpercenként
+    </script>
+</body>
+</html>
