@@ -30,7 +30,7 @@ jobs:
           pip install pytest flake8
 
       - name: 🔍 Lint code
-        run: flake8 app
+        run: flake8 app.app
 
       - name: 🧪 Run tests
         run: pytest -v || echo "⚠️ No tests found, skipping"
