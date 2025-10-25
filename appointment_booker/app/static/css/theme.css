@@ -1,0 +1,180 @@
+:root {
+  --bg-color: #f5f5f5;
+  --text-color: #111;
+  --card-bg: #ffffff;
+  --accent: #0dcaf0;
+  --glow: rgba(13, 202, 240, 0.4);
+}
+
+[data-theme="dark"] {
+  --bg-color: #0d1117;
+  --text-color: #e6edf3;
+  --card-bg: #161b22;
+  --accent: #58a6ff;
+  --glow: rgba(88, 166, 255, 0.4);
+}
+
+/* Body alapstílus */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: "Inter", "Segoe UI", sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Kártyák és dobozok */
+.card, .modal-content {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--accent);
+  border-radius: 1rem;
+  box-shadow: 0 0 15px var(--glow);
+  transition: all 0.3s ease;
+}
+
+/* Gombok */
+.btn-accent {
+  background: var(--accent);
+  color: white;
+  border: none;
+  transition: all 0.2s ease;
+}
+.btn-accent:hover {
+  box-shadow: 0 0 15px var(--glow);
+}
+
+/* Theme toggle */
+#themeToggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: var(--accent);
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--glow);
+  transition: all 0.3s ease;
+}
+#themeToggle:hover {
+  transform: rotate(180deg);
+}
+
+/* 🌌 DARK THEME TABLE FIX */
+[data-theme="dark"] .table {
+  color: var(--text-color);
+  background-color: var(--card-bg);
+  border-color: var(--accent);
+}
+
+[data-theme="dark"] .table th,
+[data-theme="dark"] .table td {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-color: var(--accent);
+}
+
+[data-theme="dark"] .table thead th {
+  background-color: rgba(88, 166, 255, 0.2); /* halvány kékes fejléc */
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+}
+
+[data-theme="dark"] .table-hover tbody tr:hover {
+  background-color: rgba(88, 166, 255, 0.1);
+}
+
+/* Világos módhoz finomabb határvonalak */
+[data-theme="light"] .table th,
+[data-theme="light"] .table td {
+  border-color: #dee2e6;
+}
+
+/* 🌙 FullCalendar Dark Mode – Glow környezet, de sem a kártyán, sem a szövegen nincs neon */
+[data-theme="dark"] .fc {
+  background-color: #0f141a;
+  color: #e0e0e0;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 0 25px rgba(0, 180, 255, 0.25); /* csak a teljes naptár köré */
+}
+
+/* Toolbar és navigációs elemek */
+[data-theme="dark"] .fc-toolbar-title {
+  color: #4dabf7;
+  text-shadow: 0 0 15px rgba(0, 180, 255, 0.5);
+  font-weight: 600;
+}
+
+[data-theme="dark"] .fc-toolbar-chunk button {
+  background-color: #1e293b;
+  border: 1px solid #38bdf8;
+  color: #e2e8f0;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
+}
+
+[data-theme="dark"] .fc-toolbar-chunk button:hover {
+  background-color: #334155;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+}
+
+/* Fejléc (napok, dátumok) */
+[data-theme="dark"] .fc-col-header-cell-cushion {
+  color: #a7c7e7;
+  text-shadow: 0 0 6px rgba(0, 180, 255, 0.4);
+  font-weight: 500;
+}
+
+/* Idősáv, slotvonalak */
+[data-theme="dark"] .fc-timegrid-slot,
+[data-theme="dark"] .fc-scrollgrid {
+  border-color: rgba(0, 180, 255, 0.15);
+}
+
+[data-theme="dark"] .fc-timegrid-axis {
+  background-color: #10161d;
+  color: #94a3b8;
+  border-color: rgba(0, 180, 255, 0.2);
+  text-shadow: 0 0 6px rgba(0, 180, 255, 0.25);
+}
+
+/* Slot címkék (idők) */
+[data-theme="dark"] .fc-timegrid-slot-label {
+  color: #64748b;
+}
+
+/* 🟩 Eseménykártyák – nincs neon */
+[data-theme="dark"] .fc-event {
+  background-color: #22c55e; /* “Free” */
+  border: none;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 6px;
+  box-shadow: none; /* nincs fény */
+  transition: background-color 0.2s ease;
+}
+
+[data-theme="dark"] .fc-event:hover {
+  background-color: #3cb371;
+  box-shadow: none;
+}
+
+/* 🔴 Foglalt események – szintén nincs fény */
+[data-theme="dark"] .fc-event[style*="background-color: rgb(220, 53, 69)"] {
+  background-color: #dc2626 !important;
+  box-shadow: none;
+}
+
+/* LIGHT MODE marad klasszikus */
+[data-theme="light"] .fc {
+  background-color: #ffffff;
+  color: #212529;
+}

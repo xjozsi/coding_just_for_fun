@@ -1,0 +1,55 @@
+/* ===== Mini Booking Calendar Custom Styles ===== */
+
+/* Szellősebb események */
+.fc-timegrid-event {
+  border-radius: 8px !important;
+  margin: 2px !important;
+  padding: 3px !important;
+  font-size: 0.85rem !important;
+  line-height: 1.2 !important;
+}
+
+/* Hover hatás */
+.fc-event:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transform: scale(1.02);
+  transition: all 0.1s ease-in-out;
+}
+
+/* Magasabb sorok */
+.fc-timegrid-slot {
+  height: 2.2em !important;
+}
+
+/* Fejléc */
+.fc-toolbar-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* Színek */
+.fc-event[style*="#28a745"] {
+  background-color: #4cd964 !important;
+  border-color: #38c172 !important;
+}
+
+.fc-event[style*="#dc3545"] {
+  background-color: #e55353 !important;
+  border-color: #cc0000 !important;
+}
+
+/* Fejléc cellák */
+.fc-col-header-cell {
+  background-color: #f8f9fa;
+  font-weight: 500;
+}
+
+/* Görgetősáv */
+.fc-scroller::-webkit-scrollbar {
+  width: 6px;
+}
+.fc-scroller::-webkit-scrollbar-thumb {
+  background-color: rgba(150, 150, 150, 0.3);
+  border-radius: 3px;
+}

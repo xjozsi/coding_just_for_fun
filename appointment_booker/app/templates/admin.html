@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard 🧑‍💼</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Bootstrap Datepicker -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
+
+  <!-- Saját CSS -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+  <!-- ✨ ÚJ: Theme CSS -->
+  <link href="{{ url_for('static', filename='css/theme.css') }}" rel="stylesheet">
+
+  <link href="{{ url_for('static', filename='favicon.png') }}" rel="icon" type="image/x-icon">
+
+  <style>
+    .badge { font-size: 0.8rem; }
+    #searchInput { max-width: 300px; }
+    th.sortable { cursor: pointer; }
+    th.sortable:hover { text-decoration: underline; }
+    .pagination { justify-content: center; }
+    .datepicker-dropdown { z-index: 2000 !important; }
+  </style>
+</head>
+
+<!-- 🔥 Theme támogatás -->
+<body data-theme="light">
+
+  <!-- 🌙 Theme toggle gomb -->
+  <button id="themeToggle" title="Toggle theme">☀️</button>
+
+  <div class="container mt-4">
+    <h2 class="mb-4 text-center">Admin Dashboard</h2>
+
+    <div class="d-flex justify-content-between mb-3 flex-wrap">
+      <input id="searchInput" type="text" class="form-control mb-2" placeholder="🔍 Search by name, email or time" style="max-width: 300px;">
+      <select id="statusFilter" class="form-select w-auto ms-2 mb-2">
+        <option value="all" selected>All</option>
+        <option value="free">Free</option>
+        <option value="booked">Booked</option>
+      </select>
+    </div>
+
+    <!-- Dátumválasztó -->
+    <div class="d-flex justify-content-center align-items-center mb-3 flex-wrap gap-2">
+      <button id="prevDay" class="btn btn-outline-primary">&laquo;</button>
+      <div class="input-group w-auto">
+        <input type="text" id="dayPicker" class="form-control text-center" readonly style="min-width: 160px;">
+        <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+      </div>
+      <button id="nextDay" class="btn btn-outline-primary">&raquo;</button>
+    </div>
+
+    <table id="slotsTable" class="table table-bordered table-hover rounded-3 shadow-sm">
+      <thead class="table-dark">
+        <tr>
+          <th class="sortable" data-col="1">Time</th>
+          <th class="sortable" data-col="2">Status</th>
+          <th class="sortable" data-col="3">Name</th>
+          <th class="sortable" data-col="4">Email</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for slot in slots %}
+        <tr data-date="{{ slot.date }}">
+          <td>{{ slot.time }}</td>
+          <td data-status="{{ 'free' if slot.available else 'booked' }}">
+            {% if slot.available %}
+              <span class="badge bg-success">Free</span>
+            {% else %}
+              <span class="badge bg-danger">Booked</span>
+            {% endif %}
+          </td>
+          <td>{{ slot.name or '-' }}</td>
+          <td>{{ slot.email or '-' }}</td>
+          <td>
+            <button class="btn btn-sm {% if slot.available %}btn-secondary{% else %}btn-warning{% endif %}"
+                    onclick="toggleSlot({{ slot.id }})">
+              {% if slot.available %}Disable{% else %}Free{% endif %}
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Saját JS -->
+  <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+  <!-- ✨ ÚJ: Theme JS -->
+  <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+</body>
+</html>
