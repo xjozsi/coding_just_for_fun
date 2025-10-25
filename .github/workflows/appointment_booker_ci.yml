@@ -30,10 +30,10 @@ jobs:
           pip install pytest flake8
 
       - name: 🔍 Lint code
-        run: flake8 app.app
+        run: flake8 appointment_booker/app
 
       - name: 🧪 Run tests
-        run: pytest -v || echo "⚠️ No tests found, skipping"
+        run: pytest appointment_booker/tests -v || echo "⚠️ No tests found, skipping"
 
   build:
     name: 🐳 Build & Push Docker image
