@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from models import db, Slot, seed_slots
 from admin_routes import admin_bp
 from user_routes import user_bp
