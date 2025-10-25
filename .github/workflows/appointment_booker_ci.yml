@@ -66,7 +66,8 @@ jobs:
       - name: ⚙️ Build and push image
         uses: docker/build-push-action@v5
         with:
-          context: appointment_booker/Dockerfile
+          context: ./appointment_booker
+          file: ./appointment_booker/Dockerfile
           push: true
           tags: ${{ env.IMAGE_NAME }}
           cache-from: type=gha
