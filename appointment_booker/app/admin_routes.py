@@ -22,10 +22,12 @@ def login():
         return render_template("login.html", error="Invalid credentials")
     return render_template("login.html")
 
+
 @admin_bp.route("/logout")
 def logout():
     session.clear()
     return redirect(url_for("admin_bp.login"))
+
 
 def admin_required(f):
     @wraps(f)
@@ -34,6 +36,7 @@ def admin_required(f):
             return redirect(url_for("admin_bp.login"))
         return f(*args, **kwargs)
     return decorated_function
+
 
 @admin_bp.route("/dashboard")
 @admin_required
@@ -60,6 +63,7 @@ def get_events():
         })
     return jsonify(events)
 
+
 @admin_bp.route("/toggle/<int:slot_id>", methods=["POST"])
 def toggle_slot(slot_id):
     slot = db.session.get(Slot, slot_id)
@@ -72,4 +76,3 @@ def toggle_slot(slot_id):
         slot.email = None
     db.session.commit()
     return jsonify({"success": True, "available": slot.available})
-

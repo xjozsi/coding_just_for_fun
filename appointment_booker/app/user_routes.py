@@ -3,9 +3,11 @@ from models import db, Slot
 
 user_bp = Blueprint("user_bp", __name__)
 
+
 @user_bp.route("/")
 def index():
     return render_template("index.html")
+
 
 @user_bp.route("/api/slots")
 def get_slots():
@@ -25,6 +27,7 @@ def get_slots():
         })
 
     return jsonify(events)
+
 
 @user_bp.route("/api/book", methods=["POST"])
 def book_slot():

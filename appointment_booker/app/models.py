@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 
 db = SQLAlchemy()
 
+
 class Slot(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.String(10), nullable=False)
@@ -20,6 +21,7 @@ class Slot(db.Model):
             "name": self.name,
             "email": self.email,
         }
+
 
 def seed_slots(app, days=60):
     """Generál félórás időpontokat 9:00–17:00 között a következő `days` napra."""

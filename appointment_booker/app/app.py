@@ -1,5 +1,5 @@
 from flask import Flask
-from models import db, Slot, seed_slots
+from models import db, seed_slots
 from admin_routes import admin_bp
 from user_routes import user_bp
 import os
