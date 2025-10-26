@@ -1,0 +1,54 @@
+---
+- name: 🔐 Log in to GitHub Container Registry
+  community.docker.docker_login:
+    registry_url: ghcr.io
+    username: "{{ github_user }}"
+    password: "{{ ghcr_token }}"
+  
+- name: 🧷 Ensure secrets directory exists
+  file:
+    path: /opt/appointment_booker/secrets
+    state: directory
+    mode: '0700'
+
+- name: 🔑 Create database password secret file
+  copy:
+    dest: /opt/appointment_booker/secrets/db_password.txt
+    content: "{{ db_password }}"
+    mode: '0600'
+
+- name: 📂 Ensure deployment directory exists
+  file:
+    path: /opt/appointment_booker
+    state: directory
+    mode: "0755"
+
+- name: 🌐 Ensure nginx directory exists
+  file:
+    path: /opt/appointment_booker/conf.d
+    state: directory
+    mode: '0755'
+
+- name: 📦 Copy nginx configuration
+  copy:
+    src: "{{ playbook_dir }}/../appointment_booker/nginx/nginx.conf"
+    dest: /opt/appointment_booker/nginx/default.conf
+    mode: '0644'
+
+- name: 🧾 Copy Docker Compose template
+  template:
+    src: docker-compose.yml.j2
+    dest: /opt/appointment_booker/docker-compose.yml
+    mode: "0644"
+
+- name: 🚀 Deploy Docker Compose stack
+  community.docker.docker_compose_v2:
+    project_src: /opt/appointment_booker
+    state: present
+
+- name: 🌍 Display access info
+  command: hostname -I
+  register: ip_output
+
+- debug:
+    msg: "✅ App running at: http://{{ ip_output.stdout.split()[0] }}"

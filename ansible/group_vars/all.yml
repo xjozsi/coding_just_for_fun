@@ -1,0 +1,11 @@
+---
+# 🔑 App config
+github_user: xjozsi
+app_version: latest
+ghcr_token: "{{ lookup('env', 'GHCR_TOKEN') }}"
+
+# ⚙️ App secrets (env-ből vagy biztonságos fájlból)
+secret_key: "{{ lookup('env', 'SECRET_KEY') }}"
+admin_user: "{{ lookup('env', 'ADMIN_USER') }}"
+admin_pass_hash: "{{ lookup('env', 'ADMIN_PASS_HASH') }}"
+db_password: "{{ lookup('file', playbook_dir + '/../appointment_booker/secrets/db_password.txt') | trim }}"

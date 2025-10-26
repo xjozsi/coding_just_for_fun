@@ -1,0 +1,57 @@
+services:
+  web:
+    image: ghcr.io/{{ github_user }}/coding_just_for_fun:{{ app_version | default('latest') }}
+    container_name: booking_web
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      FLASK_ENV: production
+      SECRET_KEY: "{{ secret_key }}"
+      ADMIN_USER: "{{ admin_user }}"
+      ADMIN_PASS_HASH: "{{ admin_pass_hash }}"
+    secrets:
+      - db_password
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app:/app
+    command: gunicorn -b 0.0.0.0:5000 app.app:app
+
+  db:
+    image: postgres:16
+    container_name: booking_db
+    restart: always
+    environment:
+      POSTGRES_DB: appointments
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+    secrets:
+      - db_password
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 5s
+      retries: 5
+
+  nginx:
+    image: nginx:latest
+    container_name: booking_nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - /opt/appointment_booker/nginx/conf.d:/etc/nginx/conf.d:ro
+      - /opt/appointment_booker/app/static:/app/static:ro
+    depends_on:
+      - web
+
+volumes:
+  pgdata:
+
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt

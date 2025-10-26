@@ -1,0 +1,8 @@
+---
+- name: 🚀 Deploy Appointment Booker stack
+  hosts: booking_prod
+  become: yes
+
+  roles:
+    - docker_setup
+    - app_deploy
